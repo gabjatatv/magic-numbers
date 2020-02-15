@@ -2,11 +2,16 @@ package com.gabor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class FileCheckerProgram {
 
 	public static void main(String[] args) {
 
+		// TODO read from the console
+		
+//		Scanner scanner = new Scanner(System.in);
+		
 		File fileToCheck = new File("/home/gabor/Scaricati/GIF-Buon-Anno.gif");
 		
 		FileChecker fileChecker = new FileChecker();
