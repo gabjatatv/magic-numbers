@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class FileChecker {
 
-	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {new FileType("jpg", new String[] {"FFD8FFDB", "FFD8FFE000104A4649460001", "FFD8FFEE"}), new FileType("gif", new String[] {"474946383761", "474946383961"})};
+	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {new FileType("jpg", new String[] {"FFD8FFDB", "FFD8FFE000104A4649460001", "FFD8FFEE", "FFD8FFE1....457869660000"}), new FileType("gif", new String[] {"474946383761", "474946383961"})};
 	
 	private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 	
@@ -78,6 +78,7 @@ public class FileChecker {
 			inputStream = new FileInputStream(fileToRead);
 			inputStream.read(buffer);
 			inputStream.close();
+			System.out.println(bytesToHex(buffer));
 			return bytesToHex(buffer);
 		} catch(IOException e) {
 			return null;
@@ -98,7 +99,7 @@ public class FileChecker {
 		for (FileType nextFileType : SUPPORTED_FILETYPES_BESIDE_TXT) {
 			for (String nextPattern : nextFileType.getMagicPatterns()) {
 				int length = nextPattern.length();
-				if (firstBytes.length() >= length && firstBytes.substring(0, length).equals(nextPattern)) {
+				if (firstBytes.length() >= length && firstBytes.substring(0, length).matches(nextPattern)) {
 					return nextFileType.getExtension();
 				}
 			}
