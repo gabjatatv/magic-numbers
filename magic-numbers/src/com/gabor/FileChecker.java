@@ -5,16 +5,18 @@ import java.io.FileNotFoundException;
 
 public class FileChecker {
 
-	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {};
+	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {new FileType("txt", new String[] {}), new FileType("jpg", new String[] {}), new FileType("gif", new String[] {})};
 	
-	public boolean checkWhetherExtensionReal(File fileToCheck) throws FileNotFoundException{
+	public boolean checkWhetherExtensionReal(File fileToCheck) throws FileNotFoundException, UnsupportedOperationException{
 		
 		if (fileToCheck == null || !fileToCheck.exists() || !fileToCheck.isFile()) {
 			throw new FileNotFoundException();
 		}
 		String extension = getExtension(fileToCheck);
 		
-		System.out.println(extension);
+		if (!isSupportedExtension(extension)) {
+			throw new UnsupportedOperationException();
+		}
 		
 		return false;
 	}
@@ -33,5 +35,17 @@ public class FileChecker {
 		}
 		
 		return null;
+	}
+	
+	private boolean isSupportedExtension(String extension) {
+		if (extension == null) {
+			return false;
+		}
+		for (FileType nextFileType : SUPPORTED_FILETYPES_BESIDE_TXT) {
+			if (extension.equals(nextFileType.getExtension().toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

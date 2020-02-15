@@ -15,6 +15,8 @@ public class FileCheckerProgram {
 			System.out.println(fileChecker.checkWhetherExtensionReal(fileToCheck) ? "true" : "false");
 		} catch (FileNotFoundException e) {
 			System.out.println("Not existing file.");
+		} catch (UnsupportedOperationException e) {
+			System.out.println("The file differentiator cannot handle that type of extension.");
 		}
 	}
 
