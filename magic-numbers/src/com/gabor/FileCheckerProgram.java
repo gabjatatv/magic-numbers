@@ -1,6 +1,7 @@
 package com.gabor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class FileCheckerProgram {
 
@@ -10,7 +11,11 @@ public class FileCheckerProgram {
 		
 		FileChecker fileChecker = new FileChecker();
 		
-		System.out.println(fileChecker.checkWhetherExtensionReal(fileToCheck) ? "true" : "false");
+		try {
+			System.out.println(fileChecker.checkWhetherExtensionReal(fileToCheck) ? "true" : "false");
+		} catch (FileNotFoundException e) {
+			System.out.println("Not existing file.");
+		}
 	}
 
 }
