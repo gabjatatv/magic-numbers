@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class FileChecker {
 
-	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {new FileType("jpg", new String[] {}), new FileType("gif", new String[] {"474946383761", "474946383961"})};
+	private static final FileType[] SUPPORTED_FILETYPES_BESIDE_TXT = new FileType[] {new FileType("jpg", new String[] {"FFD8FFDB", "FFD8FFE000104A4649460001", "FFD8FFEE"}), new FileType("gif", new String[] {"474946383761", "474946383961"})};
 	
 	private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 	
@@ -26,9 +26,19 @@ public class FileChecker {
 		
 		String firstBytesOfFile = getFirstBytes(fileToCheck);
 		
-		System.out.println(hasMagicalNumber(firstBytesOfFile));
-		
-		return false;
+		if (isSupportedExtension(extension)) {
+			if (hasMagicalNumber(firstBytesOfFile).equals(extension)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			if (!extension.equals(hasMagicalNumber(firstBytesOfFile))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 	
 	private String getExtension(File file) {
@@ -67,10 +77,11 @@ public class FileChecker {
 			byte[] buffer = new byte[12]; 
 			inputStream = new FileInputStream(fileToRead);
 			inputStream.read(buffer);
+			inputStream.close();
 			return bytesToHex(buffer);
 		} catch(IOException e) {
 			return null;
-		}
+		} 
 	}
 	
 	private static String bytesToHex(byte[] bytes) {
