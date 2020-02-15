@@ -12,7 +12,7 @@ public class FileCheckerProgram {
 		FileChecker fileChecker = new FileChecker();
 		
 		try {
-			System.out.println(fileChecker.checkWhetherExtensionReal(fileToCheck) ? "true" : "false");
+			System.out.println(fileChecker.checkWhetherExtensionReal(fileToCheck));
 		} catch (FileNotFoundException e) {
 			System.out.println("Not existing file.");
 		} catch (UnsupportedOperationException e) {

@@ -13,7 +13,7 @@ public class FileChecker {
 	
 	private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 	
-	public boolean checkWhetherExtensionReal(File fileToCheck) throws FileNotFoundException, UnsupportedOperationException{
+	public String checkWhetherExtensionReal(File fileToCheck) throws FileNotFoundException, UnsupportedOperationException{
 		
 		if (fileToCheck == null || !fileToCheck.exists() || !fileToCheck.isFile()) {
 			throw new FileNotFoundException();
@@ -28,15 +28,15 @@ public class FileChecker {
 		
 		if (isSupportedExtension(extension)) {
 			if (hasMagicalNumber(firstBytesOfFile).equals(extension)) {
-				return true;
+				return "Correct extension.";
 			} else {
-				return false;
+				return "Extension is " + extension + ", while actually it's txt.";
 			}
 		} else {
 			if (!extension.equals(hasMagicalNumber(firstBytesOfFile))) {
-				return true;
+				return "Correct extension.";
 			} else {
-				return false;
+				return "Extension is txt, while actually it's " + extension +  ".";
 			}
 		}
 	}
@@ -78,7 +78,6 @@ public class FileChecker {
 			inputStream = new FileInputStream(fileToRead);
 			inputStream.read(buffer);
 			inputStream.close();
-			System.out.println(bytesToHex(buffer));
 			return bytesToHex(buffer);
 		} catch(IOException e) {
 			return null;
